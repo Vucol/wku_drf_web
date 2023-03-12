@@ -1,0 +1,14 @@
+cd D:\GitHub\wku_drf_web\
+venv\Scripts\activate
+
+cd D:\GitHub\wku_drf_web\wku_textbook
+
+django-admin startproject myproject
+python manage.py startapp myapp
+
+python manage.py runserver
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py shell
