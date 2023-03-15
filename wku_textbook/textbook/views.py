@@ -1,14 +1,14 @@
 from rest_framework import viewsets, filters
 
-from textbook.models import Tag, Textbook, Syllabus, Course
+from textbook.models import BookTag, Textbook, Syllabus, Course
 from textbook.permissions import IsAdminUserOrReadOnly
-from textbook.serializers import SyllabusSerializer, TextbookSerializer, CourseSerializer, TagSerializer
+from textbook.serializers import SyllabusSerializer, TextbookSerializer, CourseSerializer, BookTagSerializer
 
 
 # Create your views here.
 class BookTagViewSet(viewsets.ModelViewSet):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
+    queryset = BookTag.objects.all()
+    serializer_class = BookTagSerializer
     permission_classes = [IsAdminUserOrReadOnly]
 
 

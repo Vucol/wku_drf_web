@@ -1,14 +1,14 @@
 from rest_framework import serializers
 
-from textbook.models import Tag, Textbook, Syllabus, Course
+from textbook.models import BookTag, Textbook, Syllabus, Course
 from user_info.serializers import UserDescSerializer
 
 
-class TagSerializer(serializers.ModelSerializer):
+class BookTagSerializer(serializers.ModelSerializer):
 
     def check_tag_obj_exists(self, validated_data):
         text = validated_data.get('text')
-        if Tag.objects.filter(text=text).exists():
+        if BookTag.objects.filter(text=text).exists():
             raise serializers.ValidationError('Tag with text {} exists.'.format(text))
 
     def create(self, validated_data):
@@ -20,14 +20,14 @@ class TagSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
     class Meta:
-        model = Tag
+        model = BookTag
         fields = '__all__'
 
 
 class TextbookSerializer(serializers.ModelSerializer):
     uploader = UserDescSerializer(read_only=True)
     tags = serializers.SlugRelatedField(
-        queryset=Tag.objects.all(),
+        queryset=BookTag.objects.all(),
         many=True,
         required=False,
         slug_field='text'

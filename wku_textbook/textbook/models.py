@@ -18,7 +18,7 @@ def syllabus_path(instance, filename):
     return 'syllabus/{0}'.format(filename)
 
 
-class Tag(models.Model):
+class BookTag(models.Model):
     text = models.CharField(max_length=30, unique=True)
 
     class Meta:
@@ -63,7 +63,7 @@ class Textbook(models.Model):
         related_name='version',
     )
     tags = models.ManyToManyField(
-        Tag,
+        BookTag,
         blank=True,
         related_name='textbooks'
     )
@@ -79,9 +79,10 @@ class Course(models.Model):
     subject = models.CharField(max_length=100)
     number = models.IntegerField()
     name = models.CharField(max_length=100)
+    credit = models.IntegerField(default=0)
     description = models.TextField()
-    requisites = models.CharField(max_length=100)
-    offered = models.CharField(max_length=100)
+    requisites = models.TextField(null=True, blank=True,default=None)
+    offered = models.TextField(null=True, blank=True,default=None)
     # 多对多关系，textbook 被放在 Course 当中
     textbook = models.ManyToManyField(
         Textbook,
